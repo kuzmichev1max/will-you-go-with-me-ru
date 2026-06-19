@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Сообщение для тебя</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="card">
+
+    <!-- Шаг 1: вопрос -->
+    <section class="step step--active" data-step="ask">
+      <h1 class="question">Пойдёшь гулять со мной?</h1>
+      <img class="gif" alt="" src="https://media.giphy.com/media/FTGah7Mx3ss04PcasF/giphy.gif" />
+      <div class="btn-group">
+        <button class="btn btn--yes" id="yesBtn">Да</button>
+        <button class="btn btn--no" id="noBtn">Нет</button>
+      </div>
+    </section>
+
+    <!-- Шаг 1.5: реакция -->
+    <section class="step" data-step="yay">
+      <h2 class="question">Ура, она сказала</h2>
+      <img class="gif" alt="" src="yay.svg" />
+      <p class="subnote subnote--small">а я думал ты нажмёшь на «нет» 😂</p>
+      <button class="btn btn--yes" id="yayNextBtn">Дальше 🥰</button>
+    </section>
+
+    <!-- Шаг 2: дата и время -->
+    <section class="step" data-step="when">
+      <h2 class="question">Итак... Когда мы с тобой наконец встретимся? 🐾</h2>
+      <img class="gif" alt="" src="https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif" />
+      <div class="field">
+        <label for="dateInput">Выбери дату</label>
+        <input type="date" id="dateInput" required>
+      </div>
+      <div class="field">
+        <label for="timeInput">Во сколько?</label>
+        <input type="time" id="timeInput" step="900" required>
+      </div>
+      <button class="btn btn--yes" id="whenNextBtn">Дальше</button>
+      <p class="hint" id="whenHint"></p>
+    </section>
+
+    <!-- Шаг 3: выбор еды -->
+    <section class="step" data-step="food">
+      <h2 class="question">Какое настроение по еде? 🍽️</h2>
+      <p class="subnote subnote--small">выбери что хочется ✨ (можно несколько)</p>
+      <div class="food-grid">
+        <button class="food" data-food="🍕 Пицца">🍕<span>Пицца</span></button>
+        <button class="food" data-food="🥙 Восточная">🥙<span>Восточная</span></button>
+        <button class="food" data-food="🍝 Итальянская">🍝<span>Итальянская</span></button>
+        <button class="food" data-food="🍣 Суши">🍣<span>Суши</span></button>
+        <button class="food" data-food="🍔 Бургеры">🍔<span>Бургеры</span></button>
+        <button class="food" data-food="🍰 Десерты">🍰<span>Десерты</span></button>
+      </div>
+      <button class="btn btn--yes" id="foodNextBtn">Готово 💖</button>
+      <p class="hint" id="foodHint"></p>
+    </section>
+
+    <!-- Шаг 4: финал -->
+    <section class="step" data-step="done">
+      <img class="gif" alt="" src="https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif" />
+      <h2 class="question" id="finalText">Увидимся!</h2>
+      <p class="subnote">Не забудь хорошее настроение 💕</p>
+    </section>
+
+  </main>
+  <script src="script.js"></script>
+</body>
+
+</html>
