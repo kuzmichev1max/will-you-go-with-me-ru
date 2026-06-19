@@ -1,12 +1,14 @@
 // ====== НАСТРОЙКА ======
 // Сюда вставь URL своего Cloudflare Worker (см. worker.js и README).
 // Пока пусто — данные просто покажутся в консоли и не отправятся.
-const PROXY_URL = "";
+const PROXY_URL = "proxy-willyougowihme.aviator1112.workers.dev";
 // =======================
 
 const steps = document.querySelectorAll(".step");
 function goto(name) {
-  steps.forEach(s => s.classList.toggle("step--active", s.dataset.step === name));
+  steps.forEach((s) =>
+    s.classList.toggle("step--active", s.dataset.step === name),
+  );
 }
 
 const state = { date: "", time: "", food: [] };
@@ -31,7 +33,10 @@ function runAway() {
 }
 noBtn.addEventListener("mouseover", runAway);
 noBtn.addEventListener("click", runAway);
-noBtn.addEventListener("touchstart", (e) => { e.preventDefault(); runAway(); });
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  runAway();
+});
 
 // --- Шаг 2: дата и время ---
 const dateInput = document.getElementById("dateInput");
@@ -57,7 +62,7 @@ whenNextBtn.addEventListener("click", () => {
 const foodHint = document.getElementById("foodHint");
 const foodNextBtn = document.getElementById("foodNextBtn");
 
-document.querySelectorAll(".food").forEach(btn => {
+document.querySelectorAll(".food").forEach((btn) => {
   btn.addEventListener("click", () => {
     btn.classList.toggle("food--selected");
     foodHint.textContent = "";
@@ -65,7 +70,9 @@ document.querySelectorAll(".food").forEach(btn => {
 });
 
 foodNextBtn.addEventListener("click", () => {
-  const selected = [...document.querySelectorAll(".food--selected")].map(b => b.dataset.food);
+  const selected = [...document.querySelectorAll(".food--selected")].map(
+    (b) => b.dataset.food,
+  );
   if (selected.length === 0) {
     foodHint.textContent = "Выбери хотя бы один вариант 🥺";
     return;
