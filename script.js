@@ -1,7 +1,7 @@
 // ====== НАСТРОЙКА ======
 // Сюда вставь URL своего Cloudflare Worker (см. worker.js и README).
 // Пока пусто — данные просто покажутся в консоли и не отправятся.
-const PROXY_URL = "proxy-willyougowihme.aviator1112.workers.dev";
+const PROXY_URL = "https://proxy-willyougowihme.aviator1112.workers.dev";
 // =======================
 
 const steps = document.querySelectorAll(".step");
