@@ -4,17 +4,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Сообщение для тебя</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <title>Сообщение для тебя 💌</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- кнопка звука -->
+  <button class="sound-toggle" id="soundToggle" aria-label="звук" title="звук вкл/выкл">🔊</button>
+
+  <!-- слой конфетти -->
+  <canvas id="confetti"></canvas>
+
+  <!-- фоновая музыка -->
+  <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
   <main class="card">
 
+    <!-- Шаг 0: конверт -->
+    <section class="step step--active" data-step="envelope">
+      <p class="subnote">тебе письмо…</p>
+      <button class="envelope" id="envelope" aria-label="открыть письмо">
+        <span class="envelope__flap"></span>
+        <span class="envelope__body"></span>
+        <span class="envelope__heart">💌</span>
+      </button>
+      <p class="subnote subnote--small">нажми, чтобы открыть ✨</p>
+    </section>
+
     <!-- Шаг 1: вопрос -->
-    <section class="step step--active" data-step="ask">
-      <h1 class="question">Пойдёшь гулять со мной?</h1>
+    <section class="step" data-step="ask">
+      <h1 class="question"><span id="askTypewriter"></span><span class="caret"></span></h1>
       <img class="gif" alt="" src="https://media.giphy.com/media/FTGah7Mx3ss04PcasF/giphy.gif" />
       <div class="btn-group">
         <button class="btn btn--yes" id="yesBtn">Да</button>
@@ -24,15 +44,15 @@
 
     <!-- Шаг 1.5: реакция -->
     <section class="step" data-step="yay">
-      <h2 class="question">Ура, она сказала</h2>
+      <h2 class="question" id="yayText">Ура, ты сказала «да»! 🎉</h2>
       <img class="gif" alt="" src="yay.svg" />
-      <p class="subnote subnote--small">а я думал ты нажмёшь на «нет» 😂</p>
+      <p class="subnote subnote--small">а я уж думал, придётся ловить кнопку «нет» 😂</p>
       <button class="btn btn--yes" id="yayNextBtn">Дальше 🥰</button>
     </section>
 
     <!-- Шаг 2: дата и время -->
     <section class="step" data-step="when">
-      <h2 class="question">Итак... Когда мы с тобой наконец встретимся? 🐾</h2>
+      <h2 class="question">Итак... Когда мы наконец встретимся? 🐾</h2>
       <img class="gif" alt="" src="https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif" />
       <div class="field">
         <label for="dateInput">Выбери дату</label>
@@ -46,7 +66,23 @@
       <p class="hint" id="whenHint"></p>
     </section>
 
-    <!-- Шаг 3: выбор еды -->
+    <!-- Шаг 3: активность -->
+    <section class="step" data-step="activity">
+      <h2 class="question">А чем займёмся? 💫</h2>
+      <p class="subnote subnote--small">выбери что по душе (можно несколько)</p>
+      <div class="food-grid">
+        <button class="food" data-act="🎬 Кино">🎬<span>Кино</span></button>
+        <button class="food" data-act="🚶 Прогулка">🚶<span>Прогулка</span></button>
+        <button class="food" data-act="☕ Кофе">☕<span>Кофе</span></button>
+        <button class="food" data-act="🎮 Игры">🎮<span>Игры</span></button>
+        <button class="food" data-act="🍷 Выпьем">🍷<span>Выпьем</span></button>
+        <button class="food" data-act="🍿 Netflix &amp; chill">🍿<span>Netflix&nbsp;&amp;&nbsp;chill</span></button>
+      </div>
+      <button class="btn btn--yes" id="actNextBtn">Дальше 💖</button>
+      <p class="hint" id="actHint"></p>
+    </section>
+
+    <!-- Шаг 4: выбор еды (если выбрана активность с едой) -->
     <section class="step" data-step="food">
       <h2 class="question">Какое настроение по еде? 🍽️</h2>
       <p class="subnote subnote--small">выбери что хочется ✨ (можно несколько)</p>
@@ -58,16 +94,82 @@
         <button class="food" data-food="🍔 Бургеры">🍔<span>Бургеры</span></button>
         <button class="food" data-food="🍰 Десерты">🍰<span>Десерты</span></button>
       </div>
-      <button class="btn btn--yes" id="foodNextBtn">Готово 💖</button>
+      <button class="btn btn--yes" id="foodNextBtn">Дальше 🍴</button>
       <p class="hint" id="foodHint"></p>
     </section>
 
-    <!-- Шаг 4: финал -->
-    <section class="step" data-step="done">
-      <img class="gif" alt="" src="https://media.giphy.com/media/UMon0fuimoAN9ueUNP/giphy.gif" />
-      <h2 class="question" id="finalText">Увидимся!</h2>
-      <p class="subnote">Не забудь хорошее настроение 💕</p>
+    <!-- Шаг 4.5: выбор напитков (если выбрано «Выпьем») -->
+    <section class="step" data-step="drinks">
+      <h2 class="question">Что будем пить? 🍷</h2>
+      <p class="subnote subnote--small">выбери что по вкусу ✨ (можно несколько)</p>
+      <div class="food-grid">
+        <button class="food" data-drink="🍺 Пиво">🍺<span>Пиво</span></button>
+        <button class="food" data-drink="🍷 Вино">🍷<span>Вино</span></button>
+        <button class="food" data-drink="🥃 Крепкое">🥃<span>Крепкое</span></button>
+        <button class="food" data-drink="🍸 Коктейли">🍸<span>Коктейли</span></button>
+        <button class="food" data-drink="🥂 Игристое">🥂<span>Игристое</span></button>
+        <button class="food" id="customDrinkBtn">➕<span>Свой напиток</span></button>
+      </div>
+      <button class="btn btn--yes" id="drinkNextBtn">Дальше 🥂</button>
+      <p class="hint" id="drinkHint"></p>
     </section>
+
+    <!-- Модалка: свой напиток -->
+    <div class="modal" id="customModal" hidden>
+      <div class="modal__box">
+        <h3 class="modal__title">Свой напиток 🍹</h3>
+        <p class="subnote subnote--small">впиши, чего душа просит</p>
+        <input type="text" id="customDrinkInput" class="modal__input"
+               maxlength="40" placeholder="напр. глинтвейн" />
+        <div class="btn-group">
+          <button class="btn btn--ghost" id="customCancel">Отмена</button>
+          <button class="btn btn--yes" id="customOk">Готово</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Шаг 5: пожелания -->
+    <section class="step" data-step="wishes">
+      <h2 class="question">Есть пожелания? 💭</h2>
+      <p class="subnote subnote--small">место, что захватить, что угодно ✨ (можно пропустить)</p>
+      <textarea id="wishInput" class="wish-input" maxlength="200"
+                placeholder="напр. где-нибудь в центре, и захвати плед 🧺"></textarea>
+      <div class="btn-group btn-group--col">
+        <button class="btn btn--yes" id="wishNextBtn">Готово 💖</button>
+        <button class="btn btn--ghost" id="wishSkipBtn">Пропустить</button>
+      </div>
+    </section>
+
+    <!-- Шаг 6: финал — открытка -->
+    <section class="step" data-step="done">
+      <h2 class="question" id="finalText">Свидание назначено! 🥹</h2>
+
+      <p class="subnote subnote--small" id="finalSub">Не забудь хорошее настроение 💕</p>
+
+      <div class="ticket" id="ticket">
+        <div class="ticket__top">
+          <span class="ticket__title">💌 Наше свидание</span>
+          <span class="ticket__emoji" id="ticketEmoji"></span>
+        </div>
+        <div class="ticket__row"><span>📅 Дата</span><b id="tDate">—</b></div>
+        <div class="ticket__row"><span>🕒 Время</span><b id="tTime">—</b></div>
+        <div class="ticket__row"><span>💫 Чем займёмся</span><b id="tAct">—</b></div>
+        <div class="ticket__row" id="rowFood"><span>🍽 Еда</span><b id="tFood">—</b></div>
+        <div class="ticket__row" id="rowDrinks"><span>🍷 Напитки</span><b id="tDrinks">—</b></div>
+        <div class="ticket__row" id="rowWish"><span>💭 Пожелания</span><b id="tWish">—</b></div>
+        <div class="ticket__countdown">
+          <span class="ticket__cdlabel">до встречи осталось</span>
+          <span class="ticket__cd" id="countdown">—</span>
+        </div>
+      </div>
+
+      <div class="btn-group btn-group--col">
+        <button class="btn btn--yes" id="icsBtn">📅 Добавить в календарь</button>
+        <button class="btn btn--ghost" id="resetBtn">Пройти заново 🔁</button>
+      </div>
+      <p class="subnote subnote--small">скриншоть открытку на память 💕</p>
+    </section>
+    <!-- finalSub перемещён выше открытки -->
 
   </main>
   <script src="script.js"></script>
