@@ -251,7 +251,10 @@ body::before {
   opacity: .75;
 }
 .field input {
+  -webkit-appearance: none;
+  appearance: none;
   width: 100%;
+  max-width: 100%;
   min-height: 52px;
   padding: 0 16px;
   font-size: 1.05rem;
@@ -261,6 +264,20 @@ body::before {
   border: 2px solid #f1dada;
   border-radius: 14px;
   outline: none;
+  box-sizing: border-box;
+  text-align: left;
+}
+/* iOS: убрать внутренние отступы нативных date/time и центровку */
+.field input[type="date"],
+.field input[type="time"] {
+  display: block;
+}
+.field input::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
+}
+.field input::-webkit-datetime-edit {
+  padding: 0;
 }
 .field input:focus {
   border-color: var(--accent);
