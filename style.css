@@ -255,9 +255,10 @@ body::before {
   appearance: none;
   width: 100%;
   max-width: 100%;
-  min-height: 52px;
+  height: 52px;
   padding: 0 16px;
   font-size: 1.05rem;
+  line-height: 52px;
   font-family: inherit;
   color: var(--text);
   background: #faf6f6;
@@ -265,19 +266,20 @@ body::before {
   border-radius: 14px;
   outline: none;
   box-sizing: border-box;
-  text-align: left;
+  text-align: center;
 }
-/* iOS: убрать внутренние отступы нативных date/time и центровку */
+/* iOS Safari: вертикальная и горизонтальная центровка значения date/time */
 .field input[type="date"],
 .field input[type="time"] {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .field input::-webkit-date-and-time-value {
-  text-align: left;
-  margin: 0;
+  text-align: center;
 }
 .field input::-webkit-datetime-edit {
-  padding: 0;
+  text-align: center;
 }
 .field input:focus {
   border-color: var(--accent);
